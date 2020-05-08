@@ -34,6 +34,9 @@ public class CarMoveBasic : MonoBehaviour {
 	PhoneControls phoneScript;
 	RoadSpawning roadScript;
 
+    float verticalAxis = 0;
+    float horizAxis = 0;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -51,7 +54,18 @@ public class CarMoveBasic : MonoBehaviour {
 		roadScript = roadSpawn.GetComponent<RoadSpawning>();
 	}
 
-	void FixedUpdate ()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) || phoneScript.TapGearShift()) highGear = !highGear;
+
+        verticalAxis = Input.GetAxis("Vertical");
+        horizAxis = Input.GetAxis("Horizontal");
+
+        spinOutTest();
+        RestartScene();
+    }
+
+    void FixedUpdate ()
 	{
 		if(phoneScript.Menu == false)
 		{
@@ -70,7 +84,6 @@ public class CarMoveBasic : MonoBehaviour {
 
 				//AddDownwardForce(20);
 			
-				spinOutTest();
 			}
 			else 
 			{
@@ -78,7 +91,6 @@ public class CarMoveBasic : MonoBehaviour {
 				flame.transform.rotation = Quaternion.Euler(Vector3.up);
 			}
 
-			RestartScene();
 		}
 		else
 		{
@@ -88,8 +100,6 @@ public class CarMoveBasic : MonoBehaviour {
 
 	void AccelForward()
 	{
-		if(Input.GetKeyDown(KeyCode.LeftShift) || phoneScript.TapGearShift()) highGear = !highGear;
-
 		float currentTopSpeed = topSpeed;
 		if(highGear == true)
 			currentTopSpeed = topSpeedInHighGear;
@@ -103,12 +113,12 @@ public class CarMoveBasic : MonoBehaviour {
 				ForceMode.Acceleration);
 		}
 
-		if (Input.GetAxisRaw ("Vertical") != 0 && 
+		if (verticalAxis != 0 && 
 		    rb.velocity.magnitude <= currentTopSpeed)
 		{
 			rb.AddRelativeForce(
 				new Vector3(0f,0f,
-			            accelVal * Input.GetAxis ("Vertical")), 
+			            accelVal * verticalAxis), 
 				ForceMode.Acceleration);
 		}
 
@@ -147,7 +157,7 @@ public class CarMoveBasic : MonoBehaviour {
 	{
 		int forwardBack = 1;
 
-		float rotationValue = Input.GetAxis ("Horizontal");
+		float rotationValue = horizAxis;
 		rotationValue += phoneScript.PhoneSteering();
 
 		float zVel = transform.InverseTransformDirection(rb.velocity).z;
