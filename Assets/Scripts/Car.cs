@@ -13,18 +13,18 @@ namespace SpyHunter.Car
         public bool freezeXInAir = true;
 
         [Header("Speed and Acceleration")]
-        public float lowTopSpeed;
-        public float highTopSpeed;
-        public float acceleration;
+        public float lowTopSpeed = 50;
+        public float highTopSpeed = 150;
+        public float acceleration = 60;
         public float slowFromHighSpeedBuffer = 10;
         public float slowFromHighSpeedMult = 2;
 
         [Header("Steering")]
-        public float turnSpeed;
+        public float turnSpeed = 20;
         public float turnVelocityImpact = 0.1f;
         [Range(0, 1)] public float redirectSpeedOnTurn = 1;
         public bool autoCenterRotation = true;
-        public float autoCenterRotationSpeed;
+        public float autoCenterRotationSpeed = 4;
         public bool constrainRotation = true;
         public float constrainRotationMaxValue = 60;
 
