@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SpyHunter/Scene1.unity
+    guid: 2412e4be8d9354e34b2d96114d571720
   m_configObjects: {}
