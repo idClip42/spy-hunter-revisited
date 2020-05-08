@@ -30,19 +30,31 @@ namespace SpyHunter.Car
 
         [Header("Damage")]
         public float spinOutTorque = 100000000;
+        public float crashSparksMinSpeed = 10;
+        public float crashDeathMinSpeed = 75;
+        public float crashEffectLifetime = 5;
         public GameObject flamesOnCar;
         public GameObject sparksPrefab;
         public AudioClip crashSound;
+        public float crashSoundVolume = 0.05f;
+
+        [Header("Ground")]
+        public string[] groundTags = { "Ground", "SideGround" };
+        public string[] deadlyGroundTags = { "SideGround" };
+        public string roadTriggerBoxTag = "RoadTriggerBox";
 
         [Header("Camera")]
         public Transform cameraDestination;
 
-        protected bool inHighGear = false;
-        protected Rigidbody rb;
-        protected Vector2 moveInput;
-        protected Vector3 roadDirection;
-
         public bool Alive { get; protected set; }
+
+        protected bool inHighGear = false;
+        protected Vector2 moveInput;
+
+        Rigidbody rb;
+        RigidbodyConstraints startConstraints;
+        Vector3 roadDirection;
+        bool isGrounded = true;
 
 
 
@@ -51,6 +63,7 @@ namespace SpyHunter.Car
         protected virtual void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            startConstraints = rb.constraints;
         }
 
         protected virtual void Start()
@@ -189,6 +202,117 @@ namespace SpyHunter.Car
             Die();
             rb.AddTorque(0, spinOutTorque, 0);
             rb.velocity = rb.velocity + direction;
+        }
+
+
+        static bool ArrayContains<T>(T[] array, T item) 
+        {
+            for (int n = 0; n < array.Length; ++n)
+                if (array[n].Equals(item))
+                    return true;
+
+            return false;
+        }
+
+
+
+        void SetGrounded(bool isG)
+        {
+            isGrounded = isG;
+            if (freezeXInAir)
+            {
+                rb.constraints = isG ?
+                    startConstraints :
+                    RigidbodyConstraints.FreezeRotationX;
+            }
+        }
+
+
+
+        protected virtual void OnCollisionEnter(Collision col)
+        {
+            // Determines if we've collided with the ground
+            bool collidedWithGround = ArrayContains(groundTags, col.gameObject.tag);
+
+            // If we have entered contact with the ground
+            if (collidedWithGround)
+            {
+                // We set ourselves as grounded
+                SetGrounded(true);
+            }
+
+            // If we have collided with ground of a type
+            // that is deadly to cars,
+            // we die
+            if(ArrayContains(deadlyGroundTags, col.gameObject.tag))
+            {
+                Die();
+            }
+
+            // We get the relative speed of the collision
+            float collisionSpeed = col.relativeVelocity.magnitude;
+
+            if(collisionSpeed > crashSparksMinSpeed)
+            {
+                if (crashSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(
+                        crashSound,
+                        this.transform.position,
+                        crashSoundVolume
+                        );
+                }
+
+                if (sparksPrefab != null)
+                {
+                    GameObject spark = (GameObject)Instantiate(
+                        sparksPrefab,
+                        col.contacts[0].point,
+                        Quaternion.identity
+                        );
+                    Destroy(spark, crashEffectLifetime);
+                }
+            }
+
+            if(collisionSpeed > crashDeathMinSpeed)
+            {
+                Die();
+            }
+        }
+
+        protected virtual void OnCollisionStay(Collision col)
+        {
+            // I'd rather not do this if we don't need to
+            return;
+
+            // If we have entered contact with the ground
+            if (ArrayContains(groundTags, col.gameObject.tag))
+            {
+                // We set ourselves as grounded
+                SetGrounded(true);
+            }
+        }
+
+        protected virtual void OnCollisionExit(Collision col)
+        {
+            if (ArrayContains(groundTags, col.gameObject.tag))
+            {
+                SetGrounded(false);
+            }
+        }
+
+        protected virtual void OnTriggerEnter(Collider c)
+        {
+            // If we've passed through a road trigger
+            if (c.gameObject.tag == roadTriggerBoxTag)
+            {
+                // Don't yet know what this does
+                //roadScript.updatePlayerPosition(c.gameObject.transform.parent.gameObject);
+
+                // Orients the understood direction of the road
+                // with the one indicated by the trigger
+                roadDirection = c.gameObject.transform.parent.forward;
+            }
         }
     }
 }
