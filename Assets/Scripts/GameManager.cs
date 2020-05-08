@@ -16,9 +16,14 @@ namespace SpyHunter.Game
 
         public static GameManager instance;
 
+        GUIStyle simpleScoreStyle;
+
         private void Awake()
         {
-            instance = this;
+            instance = this; 
+
+            simpleScoreStyle = new GUIStyle();
+            simpleScoreStyle.fontSize = Screen.height / 20;
         }
 
         // Start is called before the first frame update
@@ -50,5 +55,16 @@ namespace SpyHunter.Game
             scoreKills += value;
         }
 
+        void OnGUI()
+        {
+            GUI.Box(
+                new Rect(
+                    0, 
+                    0,
+                    Screen.width / 4, 
+                    Screen.height / 20), 
+                "Score: " + Score, 
+                simpleScoreStyle);
+        }
     }
 }
