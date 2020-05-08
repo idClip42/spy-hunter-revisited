@@ -7,6 +7,8 @@ namespace SpyHunter.Game
 {
     public class GameManager : MonoBehaviour
     {
+        public KeyCode restartInput = KeyCode.R;
+
         int score = 0;
         int scoreKills = 0;
 
@@ -33,7 +35,7 @@ namespace SpyHunter.Game
 
         void RestartScene()
         {
-            if (Input.GetKeyDown(KeyCode.R) 
+            if (Input.GetKeyDown(restartInput) 
                 //|| phoneScript.TapRestart(alive)
                 )
             {

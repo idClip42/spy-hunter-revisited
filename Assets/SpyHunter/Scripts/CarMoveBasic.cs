@@ -55,7 +55,9 @@ public class CarMoveBasic : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || phoneScript.TapGearShift()) highGear = !highGear;
+        if (Input.GetKeyDown(KeyCode.LeftShift) || 
+            phoneScript.TapGearShift()) 
+            highGear = !highGear;
 
         verticalAxis = Input.GetAxis("Vertical");
         horizAxis = Input.GetAxis("Horizontal");
