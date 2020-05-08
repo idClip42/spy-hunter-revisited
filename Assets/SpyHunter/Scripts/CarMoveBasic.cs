@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpyHunter.Game;
 
 public class CarMoveBasic : MonoBehaviour {
 
@@ -20,8 +21,6 @@ public class CarMoveBasic : MonoBehaviour {
 	public bool freezeXInAir;
 	public AudioClip crashSound;
 
-	int score;
-	int scoreKills;
 	Vector3 vel;
 	bool grounded;
 	bool alive;
@@ -37,12 +36,12 @@ public class CarMoveBasic : MonoBehaviour {
     float verticalAxis = 0;
     float horizAxis = 0;
 
-	// Use this for initialization
-	void Start ()
+    public bool Alive { get { return alive; } }
+
+    // Use this for initialization
+    void Start ()
 	{
 		forwardAngle = 90;
-		score = 0;
-		scoreKills = 0;
 		grounded = true;
 		alive = true;
 		rb = this.GetComponent<Rigidbody>();
@@ -62,7 +61,6 @@ public class CarMoveBasic : MonoBehaviour {
         horizAxis = Input.GetAxis("Horizontal");
 
         spinOutTest();
-        RestartScene();
     }
 
     void FixedUpdate ()
@@ -226,16 +224,6 @@ public class CarMoveBasic : MonoBehaviour {
 		flame.SetActive(true);
 	}
 
-	void RestartScene()
-	{
-		if(Input.GetKeyDown(KeyCode.R) ||
-		   phoneScript.TapRestart(alive))
-		{
-			//Application.LoadLevel ("Scene1");
-			Application.LoadLevel (Application.loadedLevelName);
-		}
-	}
-
 	void moveCamera(Transform dest)
 	{
 		cam.transform.position = Vector3.Lerp(
@@ -273,21 +261,14 @@ public class CarMoveBasic : MonoBehaviour {
 
 	void UpdateScore()
 	{
-		/*
+        /*
 		if(this.transform.position.x > score)
 			score = (int)this.transform.position.x;
 		//*/
-		score += Mathf.RoundToInt(rb.velocity.magnitude*Time.deltaTime);
+        GameManager.instance.AddToScore(Mathf.RoundToInt(rb.velocity.magnitude * Time.deltaTime));
 	}
 
-	public void AddToScore(int value)
-	{
-		scoreKills += value;
-	}
 
-	public int Score{ get{ return score + scoreKills;} }
-
-	public bool Alive{ get{ return alive;} }
 
 	void OnCollisionEnter(Collision col)
 	{

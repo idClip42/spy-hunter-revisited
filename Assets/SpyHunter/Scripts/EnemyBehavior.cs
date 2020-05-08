@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpyHunter.Game;
 
 public class EnemyBehavior : MonoBehaviour 
 {
@@ -241,7 +242,7 @@ public class EnemyBehavior : MonoBehaviour
 			alive = false;
 			rb.constraints = RigidbodyConstraints.None;
 			flame.SetActive(true);
-			target.GetComponent<CarMoveBasic>().AddToScore(pointValue);
+			GameManager.instance.AddToScore(pointValue);
 		}
 	}
 

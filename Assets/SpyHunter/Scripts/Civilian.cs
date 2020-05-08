@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpyHunter.Game;
 
 public class Civilian : MonoBehaviour {
 
@@ -53,7 +54,7 @@ public class Civilian : MonoBehaviour {
 		{
 			alive = false;
 			flame.SetActive(true);
-			if(playerKilledMe == true) player.GetComponent<CarMoveBasic>().AddToScore(-1000);
+			if(playerKilledMe == true) GameManager.instance.AddToScore(-1000);
 		}
 	}
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpyHunter.Game;
 
 public class DemoScoreDisplay : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class DemoScoreDisplay : MonoBehaviour {
 	void OnGUI()
 	{
 		float width = Screen.width;
-		int score = playerScript.Score;
+		int score = GameManager.instance.Score;
 
 		GUIStyle style = new GUIStyle();
 		style.fontSize = Screen.height/20;
