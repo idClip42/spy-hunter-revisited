@@ -6,7 +6,7 @@ namespace SpyHunter.Car
 {
     public class CarCamera : MonoBehaviour
     {
-        public CarControl carToFollow;
+        public Car carToFollow;
         public float moveSpeed;
         public float deadMoveSpeed;
         public float turnSpeed;
