@@ -227,6 +227,11 @@ namespace SpyHunter.Car
             }
         }
 
+        void SetRoadDirection(GameObject road)
+        {
+            roadDirection = road.transform.forward;
+        }
+
 
 
         protected virtual void OnCollisionEnter(Collision col)
@@ -239,6 +244,9 @@ namespace SpyHunter.Car
             {
                 // We set ourselves as grounded
                 SetGrounded(true);
+
+                // We set our general road direction with this ground
+                SetRoadDirection(col.gameObject);
             }
 
             // If we have collided with ground of a type
@@ -301,18 +309,20 @@ namespace SpyHunter.Car
             }
         }
 
-        protected virtual void OnTriggerEnter(Collider c)
-        {
-            // If we've passed through a road trigger
-            if (c.gameObject.tag == roadTriggerBoxTag)
-            {
-                // Don't yet know what this does
-                //roadScript.updatePlayerPosition(c.gameObject.transform.parent.gameObject);
 
-                // Orients the understood direction of the road
-                // with the one indicated by the trigger
-                roadDirection = c.gameObject.transform.parent.forward;
-            }
-        }
+        // Probably don't need this, as we can set this direction via collision, right?
+        //protected virtual void OnTriggerEnter(Collider c)
+        //{
+        //    // If we've passed through a road trigger
+        //    if (c.gameObject.tag == roadTriggerBoxTag)
+        //    {
+        //        // Don't yet know what this does
+        //        //roadScript.updatePlayerPosition(c.gameObject.transform.parent.gameObject);
+
+        //        // Orients the understood direction of the road
+        //        // with the one indicated by the trigger
+        //        roadDirection = c.gameObject.transform.parent.forward;
+        //    }
+        //}
     }
 }
