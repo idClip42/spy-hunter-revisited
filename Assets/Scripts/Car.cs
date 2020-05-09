@@ -46,7 +46,7 @@ namespace SpyHunter.Car
         [Header("Camera")]
         public Transform cameraDestination;
 
-        public bool Alive { get; protected set; }
+        public bool Alive { get; protected set; } = true;
 
         protected bool inHighGear = false;
         protected Vector2 moveInput;

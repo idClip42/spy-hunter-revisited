@@ -19,6 +19,7 @@ namespace SpyHunter.Car
 
         protected override void Update()
         {
+            base.Update();
             if (!Alive) return;
             MovementInput();
             GearShift();
