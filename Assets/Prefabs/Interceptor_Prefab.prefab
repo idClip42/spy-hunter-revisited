@@ -666,9 +666,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982913389391992022}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -687,17 +687,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowReverse: 1
-  freezeXInAir: 1
   lowTopSpeed: 50
   highTopSpeed: 150
   acceleration: 60
   slowFromHighSpeedBuffer: 10
   slowFromHighSpeedMult: 2
-  turnSpeed: 20
+  turnSpeed: 15
   turnVelocityImpact: 0.1
   redirectSpeedOnTurn: 1
   autoCenterRotation: 0
-  autoCenterRotationSpeed: 4
+  autoCenterRotationSpeed: 1
+  autoCenterRotationMaxXInput: 0.1
   constrainRotation: 0
   constrainRotationMaxValue: 60
   spinOutTorque: 100000000
@@ -714,9 +714,6 @@ MonoBehaviour:
   deadlyGroundTags:
   - SideGround
   roadTriggerBoxTag: RoadTriggerBox
-  cameraOffset: {x: 0, y: 2.23, z: -6.46}
-  cameraRotation: {x: -0.2, y: 0, z: 0}
-  cameraTilt: 0.5
   gearShift: 304
   holdGearShiftKey: 0
   spinOutTest: 32

@@ -37,8 +37,8 @@ namespace SpyHunter.Car
 
 
             // Gets our inputs
-            moveInput.y = Input.GetAxis("Vertical");
-            moveInput.x = Input.GetAxis("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
+            moveInput.x = Input.GetAxisRaw("Horizontal");
 
 
             // If we are in auto drive mode
@@ -46,7 +46,7 @@ namespace SpyHunter.Car
             {
                 // Gets the raw Y input
                 // So we know exactly what the key state is
-                float rawY = Input.GetAxisRaw("Vertical");
+                float rawY = moveInput.y;
 
                 // If there is no forward input
                 if (rawY.Equals(0))

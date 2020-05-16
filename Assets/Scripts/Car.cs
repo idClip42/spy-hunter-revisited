@@ -10,7 +10,7 @@ namespace SpyHunter.Car
     {
         [Header("Movement")]
         public bool allowReverse = false;
-        public bool freezeXInAir = true;
+        //public bool freezeXInAir = false;
 
         [Header("Speed and Acceleration")]
         public float lowTopSpeed = 50;
@@ -20,13 +20,17 @@ namespace SpyHunter.Car
         public float slowFromHighSpeedMult = 2;
 
         [Header("Steering")]
-        public float turnSpeed = 20;
+        public float turnSpeed = 15;
+        public float highTurnSpeed = 5;
         public float turnVelocityImpact = 0.1f;
+        // TODO: Change this to some sort of "Time to redirect speed on turn" value.
+        // As is, it's effectively either 0 or 1 because it's applied every frame
         [Range(0, 1)] public float redirectSpeedOnTurn = 1;
         public bool autoCenterRotation = true;
         public float autoCenterRotationSpeed = 4;
+        public float autoCenterRotationMaxXInput = 0.1f;
         public bool constrainRotation = true;
-        public float constrainRotationMaxValue = 60;
+        [Range(0,90)]public float constrainRotationMaxValue = 60;
 
         [Header("Damage")]
         public float spinOutTorque = 100000000;
@@ -92,6 +96,8 @@ namespace SpyHunter.Car
 
         void Acceleration()
         {
+            if (!Grounded) return;
+
             // Gets our desired speed, based on the gear shift
             float topSpeed = (inHighGear) ? highTopSpeed : lowTopSpeed;
 
@@ -125,8 +131,8 @@ namespace SpyHunter.Car
                 // If our motion is backwards
                 if (Vector3.Dot(transform.forward, rb.velocity) < 0)
                 {
-                    // We stop the motion
-                    rb.velocity = Vector3.zero;
+                    // We stop the horizontal motion
+                    rb.velocity = Vector3.up * rb.velocity.y;
                 }
             }
         }
@@ -138,6 +144,7 @@ namespace SpyHunter.Car
             // So an exact value for how fast we're moving forward
             // (and whether it's forward or backward)
             float zVelocity = transform.InverseTransformDirection(rb.velocity).z;
+            //float zVelocity = moveInput.y;
 
             // Gets a directional multiplier for the turning
             // When in reverse, turns are reversed
@@ -146,8 +153,10 @@ namespace SpyHunter.Car
             // Gets the speed
             float speed = rb.velocity.magnitude;
 
+            float currentTurnSpeed = inHighGear ? highTurnSpeed : turnSpeed;
+
             // Gets our rotation speed
-            float rotateSpeed = moveInput.x * direction * turnSpeed * speed * turnVelocityImpact;
+            float rotateSpeed = moveInput.x * direction * currentTurnSpeed * speed * turnVelocityImpact;
 
             AngularVelocity = new Vector3(0, rotateSpeed, 0);
 
@@ -155,7 +164,7 @@ namespace SpyHunter.Car
             transform.Rotate(AngularVelocity * Time.fixedDeltaTime);
 
             // If we're moving forward
-            if (direction > 0)
+            if (direction > 0 && Grounded)
             {
                 // We want to redirect the velocity
                 rb.velocity = Vector3.Lerp(
@@ -167,12 +176,20 @@ namespace SpyHunter.Car
             // If we're auto-centering the rotation
             if (autoCenterRotation == true)
             {
-                // We nudge the car direction towards that of the road
-                transform.forward = Vector3.RotateTowards(
-                    transform.forward,
-                    roadDirection,
-                    autoCenterRotationSpeed * Time.fixedDeltaTime,
-                    0);
+                // Only if we're grounded
+                if (Grounded)
+                {
+                    // If we don't have x input
+                    if (Mathf.Abs(moveInput.x) < autoCenterRotationMaxXInput)
+                    {
+                        // We nudge the car direction towards that of the road
+                        transform.forward = Vector3.RotateTowards(
+                            transform.forward,
+                            roadDirection,
+                            autoCenterRotationSpeed * Time.fixedDeltaTime,
+                            0);
+                    }
+                }
             }
 
             // If we're constraining the rotation
@@ -189,11 +206,11 @@ namespace SpyHunter.Car
                 {
                     // We find the amount we have to rotate by
                     float diff = (angle > 0) ?
-                        angle + constrainRotationMaxValue :
-                        angle - constrainRotationMaxValue;
+                        angle - constrainRotationMaxValue :
+                        angle + constrainRotationMaxValue;
 
                     // We rotate
-                    transform.Rotate(0, diff, 0);
+                    transform.Rotate(0, -diff, 0);
                 }
             }
         }
@@ -220,12 +237,12 @@ namespace SpyHunter.Car
         void SetGrounded(bool isG)
         {
             Grounded = isG;
-            if (freezeXInAir)
-            {
-                rb.constraints = isG ?
-                    startConstraints :
-                    RigidbodyConstraints.FreezeRotationX;
-            }
+            //if (freezeXInAir)
+            //{
+            //    rb.constraints = isG ?
+            //        startConstraints :
+            //        RigidbodyConstraints.FreezeRotationX;
+            //}
         }
 
         void SetRoadDirection(GameObject road)
@@ -327,11 +344,14 @@ namespace SpyHunter.Car
         private void OnDrawGizmos()
         {
             if (rb == null) return;
+            const float OFFSET = 3;
             string text = "";
             text += "Velocity: " + Velocity + "\n";
             text += "Angular Velocity: " + AngularVelocity + "\n";
+            text += "Z-Velocity: " + transform.InverseTransformDirection(rb.velocity).z + "\n";
             text += "Grounded: " + Grounded + "\n";
-            UnityEditor.Handles.Label(transform.position, text);
+            text += "Angle: " + Vector3.SignedAngle(roadDirection, transform.forward, Vector3.up) + "\n";
+            UnityEditor.Handles.Label(transform.position + Vector3.up * OFFSET, text);
         }
 #endif
     }

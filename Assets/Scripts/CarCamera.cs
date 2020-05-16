@@ -113,12 +113,12 @@ namespace SpyHunter.Car
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            const float RIGHT_OFFSET = 3;
+            const float RIGHT_OFFSET = 2.5f;
             string text = "";
             text += "Cam Move Speed: " + currentMoveSpeed + "\n";
             text += "Cam Turn Speed: " + currentTurnSpeed + "\n";
             UnityEditor.Handles.Label(
-                carToFollow.transform.position + carToFollow.transform.right * RIGHT_OFFSET, 
+                carToFollow.transform.position + transform.right * RIGHT_OFFSET, 
                 text);
         }
 #endif
