@@ -27,6 +27,15 @@ namespace SpyHunter.Car
 
         void MovementInput()
         {
+            // If we are off the ground
+            if (!Grounded)
+            {
+                // We can't move the vehicle
+                moveInput = Vector2.zero;
+                return;
+            }
+
+
             // Gets our inputs
             moveInput.y = Input.GetAxis("Vertical");
             moveInput.x = Input.GetAxis("Horizontal");

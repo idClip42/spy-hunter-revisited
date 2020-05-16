@@ -43,10 +43,9 @@ namespace SpyHunter.Car
         public string[] deadlyGroundTags = { "SideGround" };
         public string roadTriggerBoxTag = "RoadTriggerBox";
 
-        [Header("Camera")]
-        public Transform cameraDestination;
-
         public bool Alive { get; protected set; } = true;
+        public Vector3 Velocity { get { return rb.velocity; } }
+        public Vector3 AngularVelocity { get; private set; }
 
         protected bool inHighGear = false;
         protected Vector2 moveInput;
@@ -54,7 +53,7 @@ namespace SpyHunter.Car
         Rigidbody rb;
         RigidbodyConstraints startConstraints;
         Vector3 roadDirection;
-        bool isGrounded = true;
+        public bool Grounded { get; private set; } = true;
 
 
 
@@ -150,8 +149,10 @@ namespace SpyHunter.Car
             // Gets our rotation speed
             float rotateSpeed = moveInput.x * direction * turnSpeed * speed * turnVelocityImpact;
 
+            AngularVelocity = new Vector3(0, rotateSpeed, 0);
+
             // Rotates the vehicle
-            transform.Rotate(0, rotateSpeed * Time.fixedDeltaTime, 0);
+            transform.Rotate(AngularVelocity * Time.fixedDeltaTime);
 
             // If we're moving forward
             if (direction > 0)
@@ -218,7 +219,7 @@ namespace SpyHunter.Car
 
         void SetGrounded(bool isG)
         {
-            isGrounded = isG;
+            Grounded = isG;
             if (freezeXInAir)
             {
                 rb.constraints = isG ?
@@ -290,9 +291,6 @@ namespace SpyHunter.Car
 
         protected virtual void OnCollisionStay(Collision col)
         {
-            // I'd rather not do this if we don't need to
-            return;
-
             // If we have entered contact with the ground
             if (ArrayContains(groundTags, col.gameObject.tag))
             {
@@ -324,5 +322,17 @@ namespace SpyHunter.Car
         //        roadDirection = c.gameObject.transform.parent.forward;
         //    }
         //}
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (rb == null) return;
+            string text = "";
+            text += "Velocity: " + Velocity + "\n";
+            text += "Angular Velocity: " + AngularVelocity + "\n";
+            text += "Grounded: " + Grounded + "\n";
+            UnityEditor.Handles.Label(transform.position, text);
+        }
+#endif
     }
 }

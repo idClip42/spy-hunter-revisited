@@ -1,96 +1,251 @@
 fileFormatVersion: 2
 guid: 904266af7f3a74d5d86daf7806ae0d61
-timeCreated: 1443888812
-licenseType: Free
 ModelImporter:
-  serializedVersion: 18
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Body
-    100004: HeadlightCover
-    100006: TireBL
-    100008: TireBL_001
-    100010: TireFL
-    100012: TireFR
-    100014: TireBR
-    100016: BottomPlane
-    100018: RimsBL
-    100020: RimsBR
-    100022: RimsFL
-    100024: RimsFR
-    400000: //RootNode
-    400002: Body
-    400004: HeadlightCover
-    400006: TireBL
-    400008: TireBL_001
-    400010: TireFL
-    400012: TireFR
-    400014: TireBR
-    400016: BottomPlane
-    400018: RimsBL
-    400020: RimsBR
-    400022: RimsFL
-    400024: RimsFR
-    2300000: //RootNode
-    2300002: Body
-    2300004: HeadlightCover
-    2300006: TireBL
-    2300008: TireBL_001
-    2300010: TireFL
-    2300012: TireFR
-    2300014: TireBR
-    2300016: BottomPlane
-    2300018: RimsBL
-    2300020: RimsBR
-    2300022: RimsFL
-    2300024: RimsFR
-    3300000: //RootNode
-    3300002: Body
-    3300004: HeadlightCover
-    3300006: TireBL
-    3300008: TireBL_001
-    3300010: TireFL
-    3300012: TireFR
-    3300014: TireBR
-    3300016: BottomPlane
-    3300018: RimsBL
-    3300020: RimsBR
-    3300022: RimsFL
-    3300024: RimsFR
-    4300000: Cube
-    4300002: HeadlightCover
-    4300004: Body
-    4300006: TireBL_001
-    4300008: TireFR
-    4300010: TireBL
-    4300012: TireFL
-    4300014: TireBR
-    4300016: BottomPlane
-    4300018: RimsBL
-    4300020: RimsBR
-    4300022: RimsFL
-    4300024: RimsFR
-    7400000: Default Take
-    9500000: //RootNode
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Body
+  - first:
+      1: 100004
+    second: HeadlightCover
+  - first:
+      1: 100006
+    second: TireBL
+  - first:
+      1: 100008
+    second: TireBL_001
+  - first:
+      1: 100010
+    second: TireFL
+  - first:
+      1: 100012
+    second: TireFR
+  - first:
+      1: 100014
+    second: TireBR
+  - first:
+      1: 100016
+    second: BottomPlane
+  - first:
+      1: 100018
+    second: RimsBL
+  - first:
+      1: 100020
+    second: RimsBR
+  - first:
+      1: 100022
+    second: RimsFL
+  - first:
+      1: 100024
+    second: RimsFR
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Body
+  - first:
+      4: 400004
+    second: HeadlightCover
+  - first:
+      4: 400006
+    second: TireBL
+  - first:
+      4: 400008
+    second: TireBL_001
+  - first:
+      4: 400010
+    second: TireFL
+  - first:
+      4: 400012
+    second: TireFR
+  - first:
+      4: 400014
+    second: TireBR
+  - first:
+      4: 400016
+    second: BottomPlane
+  - first:
+      4: 400018
+    second: RimsBL
+  - first:
+      4: 400020
+    second: RimsBR
+  - first:
+      4: 400022
+    second: RimsFL
+  - first:
+      4: 400024
+    second: RimsFR
+  - first:
+      23: 2300000
+    second: //RootNode
+  - first:
+      23: 2300002
+    second: Body
+  - first:
+      23: 2300004
+    second: HeadlightCover
+  - first:
+      23: 2300006
+    second: TireBL
+  - first:
+      23: 2300008
+    second: TireBL_001
+  - first:
+      23: 2300010
+    second: TireFL
+  - first:
+      23: 2300012
+    second: TireFR
+  - first:
+      23: 2300014
+    second: TireBR
+  - first:
+      23: 2300016
+    second: BottomPlane
+  - first:
+      23: 2300018
+    second: RimsBL
+  - first:
+      23: 2300020
+    second: RimsBR
+  - first:
+      23: 2300022
+    second: RimsFL
+  - first:
+      23: 2300024
+    second: RimsFR
+  - first:
+      33: 3300000
+    second: //RootNode
+  - first:
+      33: 3300002
+    second: Body
+  - first:
+      33: 3300004
+    second: HeadlightCover
+  - first:
+      33: 3300006
+    second: TireBL
+  - first:
+      33: 3300008
+    second: TireBL_001
+  - first:
+      33: 3300010
+    second: TireFL
+  - first:
+      33: 3300012
+    second: TireFR
+  - first:
+      33: 3300014
+    second: TireBR
+  - first:
+      33: 3300016
+    second: BottomPlane
+  - first:
+      33: 3300018
+    second: RimsBL
+  - first:
+      33: 3300020
+    second: RimsBR
+  - first:
+      33: 3300022
+    second: RimsFL
+  - first:
+      33: 3300024
+    second: RimsFR
+  - first:
+      43: 4300000
+    second: Cube
+  - first:
+      43: 4300002
+    second: HeadlightCover
+  - first:
+      43: 4300004
+    second: Body
+  - first:
+      43: 4300006
+    second: TireBL_001
+  - first:
+      43: 4300008
+    second: TireFR
+  - first:
+      43: 4300010
+    second: TireBL
+  - first:
+      43: 4300012
+    second: TireFL
+  - first:
+      43: 4300014
+    second: TireBR
+  - first:
+      43: 4300016
+    second: BottomPlane
+  - first:
+      43: 4300018
+    second: RimsBL
+  - first:
+      43: 4300020
+    second: RimsBR
+  - first:
+      43: 4300022
+    second: RimsFL
+  - first:
+      43: 4300024
+    second: RimsFR
+  - first:
+      74: 7400000
+    second: Default Take
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SpyHunterBodyMat
+    second: {fileID: 2100000, guid: 2197d9dfb7c4c40b99af65653b48c322, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SpyHunterHeadlightMat
+    second: {fileID: 2100000, guid: 83c4a29d704a84471b6665bdcd9e5979, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TireMat
+    second: {fileID: 2100000, guid: d4db08886ae4941c0845d7a0e3c47d78, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -98,13 +253,23 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -112,24 +277,34 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
